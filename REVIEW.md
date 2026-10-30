@@ -184,9 +184,9 @@ Source: `git log` after `git fetch --unshallow`.
 
 - **What it would replace:** Claude Code's own memory is curated text that you or Claude edit
   (CLAUDE.md, memory files). Turnbook is different. It keeps everything and searches it, and it
-  injects results into every prompt. It complements curated memory rather than replacing it, and
-  it overlaps directly with your own persistent-memory server. Hypothesis: running both would
-  double the injected context and confuse which one is the source of truth.
+  injects results into every prompt. It complements curated memory rather than replacing it.
+  Hypothesis: if CLAUDE.md and Turnbook disagree, the model sees both and it is unclear which
+  one is the source of truth, so curated files need to stay authoritative.
 - **Per-prompt cost:** an evidence packet of about 3.1k tokens (`docs/benchmarks.md:13`),
   injected on prompts it judges relevant. That's real context-window spend on every session,
   even though writing is free.
@@ -212,8 +212,8 @@ Source: `git log` after `git fetch --unshallow`.
    and the Startup shortcut cleanly?
 2. How much latency does the `UserPromptSubmit` hook add to each Claude Code prompt in practice,
    with a cold and a warm service?
-3. Does the injected memory improve or degrade answers in your real projects, compared with your
-   own memory server?
+3. Does the injected memory improve or degrade answers in your real projects, compared with
+   CLAUDE.md and Claude Code's memory files alone?
 4. How fast does `~/.graph-mind/` grow with your actual Claude Code usage?
 5. Does the masking catch the secret formats that actually show up in your sessions?
 6. Does Windows Defender or SmartScreen object to the uv download, `pythonw` at login, or the
